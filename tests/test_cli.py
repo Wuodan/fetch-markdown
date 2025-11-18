@@ -1,3 +1,5 @@
+"""CLI-focused regression tests."""
+
 from __future__ import annotations
 
 import io
@@ -7,6 +9,8 @@ from fetch_markdown import cli
 
 
 def test_cli_prints_stdout(monkeypatch, capsys):
+    """CLI should print converted Markdown to stdout by default."""
+
     def fake_fetch(url, **kwargs):  # noqa: ANN001
         assert url == "https://example.com"
         return "<html>hello</html>", "text/html"
@@ -27,6 +31,8 @@ def test_cli_prints_stdout(monkeypatch, capsys):
 
 
 def test_cli_writes_file(monkeypatch, tmp_path: Path, capsys):
+    """CLI should write Markdown to the provided --output path."""
+
     def fake_fetch(url, **kwargs):  # noqa: ANN001
         return "<html>file</html>", "text/html"
 
@@ -51,6 +57,7 @@ def test_cli_writes_file(monkeypatch, tmp_path: Path, capsys):
 
 
 def test_cli_reads_file_source(monkeypatch, tmp_path: Path, capsys):
+    """CLI should read HTML from disk and pass it through the converter."""
     html_file = tmp_path / "page.html"
     html_file.write_text("<html>file</html>", encoding="utf-8")
 
@@ -69,6 +76,7 @@ def test_cli_reads_file_source(monkeypatch, tmp_path: Path, capsys):
 
 
 def test_cli_reads_stdin_source(monkeypatch, capsys):
+    """CLI should pipe stdin when '-' is used as the source."""
     monkeypatch.setattr(cli.sys, "stdin", io.StringIO("<html>stdin</html>"))
 
     def fake_html_to_markdown(*args, **kwargs):  # noqa: ANN001
@@ -84,6 +92,7 @@ def test_cli_reads_stdin_source(monkeypatch, capsys):
 
 
 def test_cli_writes_file_from_path_source(monkeypatch, tmp_path: Path, capsys):
+    """CLI should transform a local file and persist output when requested."""
     html_file = tmp_path / "page.html"
     html_file.write_text("<html>file</html>", encoding="utf-8")
 

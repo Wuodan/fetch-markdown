@@ -12,6 +12,7 @@ from .models import Html2MarkdownError
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Construct and return the CLI argument parser."""
     parser = argparse.ArgumentParser(
         description="Fetch a web page and output cleaned Markdown",
     )
@@ -57,17 +58,20 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _is_url(value: str) -> bool:
+    """Return True when ``value`` looks like an HTTP(S) URL."""
     parsed = urlparse(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
-def _write_output_file(content: str, output_path: Path | str):
+def _write_output_file(content: str, output_path: Path | str) -> None:
+    """Persist rendered Markdown to ``output_path``."""
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Entry point used by ``python -m fetch_markdown`` and the console script."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

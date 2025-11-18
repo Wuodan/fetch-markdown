@@ -13,8 +13,8 @@ DEFAULT_USER_AGENT = _DEFAULT_USER_AGENT
 
 
 def html_to_markdown(
-    html: str,
-    content_type: Any | None = None,
+        html: str,
+        content_type: Any | None = None,
 ) -> str:
     """Convert HTML into Markdown."""
 
@@ -22,9 +22,9 @@ def html_to_markdown(
 
 
 def file_to_markdown(
-    path: Path | str,
-    *,
-    encoding: str | None = "utf-8",
+        path: Path | str,
+        *,
+        encoding: str | None = "utf-8",
 ) -> str:
     """Convert a local HTML file into Markdown."""
 
@@ -33,12 +33,12 @@ def file_to_markdown(
 
 
 def fetch(
-    url: str,
-    *,
-    user_agent: str | None = None,
-    ignore_robots_txt: bool = False,
-    proxy_url: str | None = None,
-    timeout: float = 30.0,
+        url: str,
+        *,
+        user_agent: str | None = None,
+        ignore_robots_txt: bool = False,
+        proxy_url: str | None = None,
+        timeout: float = 30.0,
 ) -> tuple[str, str]:
     """Fetch the given URL and return the content and content-type."""
 
@@ -52,12 +52,12 @@ def fetch(
 
 
 def fetch_to_markdown(
-    url: str,
-    *,
-    user_agent: str | None = None,
-    ignore_robots_txt: bool = False,
-    proxy_url: str | None = None,
-    timeout: float = 30.0,
+        url: str,
+        *,
+        user_agent: str | None = None,
+        ignore_robots_txt: bool = False,
+        proxy_url: str | None = None,
+        timeout: float = 30.0,
 ) -> str:
     """Fetch the given URL and return the simplified Markdown content."""
 

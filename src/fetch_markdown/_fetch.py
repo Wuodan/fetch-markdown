@@ -15,6 +15,7 @@ DEFAULT_USER_AGENT = (
 
 
 def _get_robots_txt_url(url: str) -> str:
+    """Return the robots.txt URL for the host extracted from ``url``."""
     parsed = urlparse(url)
     return urlunparse((parsed.scheme, parsed.netloc, "/robots.txt", "", "", ""))
 
@@ -24,6 +25,7 @@ async def _check_may_fetch_url(
         user_agent: str,
         proxy_url: str | None = None,
 ) -> None:
+    """Validate robots.txt rules for the provided URL."""
     from httpx import AsyncClient, HTTPError
 
     robot_txt_url = _get_robots_txt_url(url)
@@ -63,6 +65,7 @@ async def _fetch_url(
         proxy_url: str | None = None,
         timeout: float = 30.0,
 ) -> tuple[str, str]:
+    """Perform the HTTP GET request and return response body and content-type."""
     from httpx import AsyncClient, HTTPError
 
     async with AsyncClient(proxy=proxy_url) as client:
@@ -95,6 +98,7 @@ async def _fetch_async(
         proxy_url: str | None,
         timeout: float,
 ) -> tuple[str, str]:
+    """Wrapper that optionally enforces robots.txt validation before fetching."""
     if not ignore_robots_txt:
         await _check_may_fetch_url(url, user_agent, proxy_url=proxy_url)
 

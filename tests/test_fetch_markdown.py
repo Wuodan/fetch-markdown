@@ -1,3 +1,5 @@
+"""Live network test exercising the full fetch→markdown pipeline."""
+
 from __future__ import annotations
 
 import pytest
@@ -8,9 +10,11 @@ Example_URL = "https://www.iana.org/help/example-domains"
 
 
 def test_fetch_to_markdown(tmp_path) -> None:
+    """Fetch real content from iana.org and persist the resulting Markdown."""
     try:
         markdown = fetch_to_markdown(Example_URL)
     except Html2MarkdownError as exc:  # pragma: no cover - depends on network
+        # Networking hiccups shouldn't fail the suite; treat them as skipped.
         pytest.skip(f"Unable to contact iana.org: {exc}")
 
     output_path = tmp_path / "example-domains.md"

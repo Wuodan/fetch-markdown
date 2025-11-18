@@ -16,14 +16,14 @@ HTML_TAG_THRESHOLD = 100
 
 
 def to_markdown(
-    html: str,
-    content_type: Optional[Any] = None,
+        html: str,
+        content_type: Optional[Any] = None,
 ) -> str:
     """Convert raw HTML into Markdown."""
 
     content_type_value = str(content_type or "")
     is_content_type_html = (
-        not content_type_value or "text/html" in content_type_value.lower()
+            not content_type_value or "text/html" in content_type_value.lower()
     )
     if not is_content_type_html:
         raise Html2MarkdownContentTypeError(
