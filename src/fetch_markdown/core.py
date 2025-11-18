@@ -47,7 +47,7 @@ async def _check_may_fetch_url(
 
     robot_txt_url = get_robots_txt_url(url)
 
-    async with AsyncClient(proxies=proxy_url) as client:
+    async with AsyncClient(proxy=proxy_url) as client:
         try:
             response = await client.get(
                 robot_txt_url,
@@ -85,7 +85,7 @@ async def _fetch_url(
 ) -> Tuple[str, str]:
     from httpx import AsyncClient, HTTPError
 
-    async with AsyncClient(proxies=proxy_url) as client:
+    async with AsyncClient(proxy=proxy_url) as client:
         try:
             response = await client.get(
                 url,
