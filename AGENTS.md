@@ -9,7 +9,7 @@
 - Always activate the local venv: `source .venv/bin/activate` (or `.\.venv\Scripts\activate` on Windows) before running Python tooling.
 - `python -m pip install -r requirements-dev.txt` – install runtime + dev deps inside `.venv`.
 - `ruff check src/fetch_markdown tests` – lint for style/compliance; mirrors CI expectations.
-- `pytest --cov=fetch_markdown --cov-report=term-missing` – run all tests and show coverage gaps.
+- `pytest --cov=src --cov-report=term-missing` – run all tests and show coverage gaps.
 - `python -m build` – produce sdist/wheel (CI calls hatchling with the same command).
 
 ## Coding Style & Naming Conventions
