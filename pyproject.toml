@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling>=1.18", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fetch-markdown"
+description = "Fetch a web page and convert it into cleaned Markdown."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "httpx<0.28",
+    "markdownify>=0.13.1",
+    "protego>=0.3.1",
+    "readabilipy>=0.2.0",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Wuodan/fetch-markdown"
+Repository = "https://github.com/Wuodan/fetch-markdown"
+Issues = "https://github.com/Wuodan/fetch-markdown/issues"
+
+[project.scripts]
+fetch-markdown = "fetch_markdown.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = [{ include = "fetch_markdown", from = "src" }]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/fetch_markdown/_version.py"
+
+[tool.pytest.ini_options]
+addopts = "--maxfail=1 --disable-warnings"
+testpaths = ["tests"]
+pythonpath = ["src"]
