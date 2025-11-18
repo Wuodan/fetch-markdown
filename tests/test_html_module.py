@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from fetch_markdown._html import _ensure_node_path, _extract_content_from_html, to_markdown
+from extract2md._html import _ensure_node_path, _extract_content_from_html, to_markdown
 
 
 def test_to_markdown_uses_readability_and_markdownify(monkeypatch):
@@ -23,11 +23,11 @@ def test_to_markdown_uses_readability_and_markdownify(monkeypatch):
         return "Body"
 
     monkeypatch.setattr(
-        "fetch_markdown._html.readabilipy.simple_json.simple_json_from_html_string",
+        "extract2md._html.readabilipy.simple_json.simple_json_from_html_string",
         fake_simple_json_from_html_string,
     )
     monkeypatch.setattr(
-        "fetch_markdown._html.markdownify.markdownify",
+        "extract2md._html.markdownify.markdownify",
         fake_markdownify,
     )
 
@@ -47,7 +47,7 @@ def test_extract_content_handles_empty_payload(monkeypatch):
         return {"content": ""}
 
     monkeypatch.setattr(
-        "fetch_markdown._html.readabilipy.simple_json.simple_json_from_html_string",
+        "extract2md._html.readabilipy.simple_json.simple_json_from_html_string",
         fake_simple_json_from_html_string,
     )
 
@@ -58,11 +58,11 @@ def test_extract_content_handles_empty_payload(monkeypatch):
 
 
 def test_ensure_node_path_inserts_directory(monkeypatch, tmp_path: Path):
-    """FETCH_MARKDOWN_NODE_PATH should be prepended to PATH when valid."""
+    """EXTRACT2MD_NODE_PATH should be prepended to PATH when valid."""
     node_dir = tmp_path / "node"
     node_dir.mkdir()
 
-    monkeypatch.setenv("FETCH_MARKDOWN_NODE_PATH", str(node_dir))
+    monkeypatch.setenv("EXTRACT2MD_NODE_PATH", str(node_dir))
     monkeypatch.setenv("PATH", "/usr/bin")
 
     _ensure_node_path()
@@ -72,7 +72,7 @@ def test_ensure_node_path_inserts_directory(monkeypatch, tmp_path: Path):
 
 def test_ensure_node_path_ignores_missing_entries(monkeypatch, tmp_path: Path):
     """Non-existent paths should not be added to PATH."""
-    monkeypatch.setenv("FETCH_MARKDOWN_NODE_PATH", str(tmp_path / "missing"))
+    monkeypatch.setenv("EXTRACT2MD_NODE_PATH", str(tmp_path / "missing"))
     existing_path = "/usr/bin"
     monkeypatch.setenv("PATH", existing_path)
 

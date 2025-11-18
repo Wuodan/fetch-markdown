@@ -5,12 +5,11 @@ from __future__ import annotations
 import asyncio
 from urllib.parse import urlparse, urlunparse
 
+from extract2md.models import Html2MarkdownFetchError
 from protego import Protego
 
-from fetch_markdown.models import Html2MarkdownFetchError
-
 DEFAULT_USER_AGENT = (
-    "fetch-markdown/0.1 (+https://github.com/Wuodan/fetch-markdown)"
+    "extract2md/0.1 (+https://github.com/Wuodan/extract2md)"
 )
 
 

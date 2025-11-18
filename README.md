@@ -1,6 +1,6 @@
-# fetch-markdown
+# extract2md
 
-`fetch_markdown` is all about “HTML in → Markdown out.” You can start from a live
+`extract2md` is all about “HTML in → Markdown out.” You can start from a live
 URL, a file on disk, or an already-loaded HTML string.
 
 It can be used from CLI or as a Python library.
@@ -8,7 +8,7 @@ It can be used from CLI or as a Python library.
 ## Installation
 
 ```bash
-pip install fetch-markdown
+pip install extract2md
 ```
 
 Prerequisites:
@@ -21,28 +21,28 @@ Prerequisites:
 ### 1. Fetch a URL and display Markdown
 
 ```bash
-fetch-markdown https://www.iana.org/help/example-domains
+extract2md https://www.iana.org/help/example-domains
 ```
 
 ### 2. Fetch and write to a file
 
 ```bash
-fetch-markdown --output sample-output.md https://www.iana.org/help/example-domains
+extract2md --output sample-output.md https://www.iana.org/help/example-domains
 ```
 
 ### 3. Convert previously saved HTML (files or stdin)
 
 ```bash
 # convert file
-fetch-markdown sample-page.html
+extract2md sample-page.html
 # or from stdin
-cat sample-page.html | fetch-markdown -
+cat sample-page.html | extract2md -
 ```
 
 ### 4. Skip Markdown conversion and emit the HTML verbatim
 
 ```bash
-fetch-markdown --raw https://example.com
+extract2md --raw https://example.com
 ```
 
 ## Parameters
@@ -60,12 +60,12 @@ fetch-markdown --raw https://example.com
 
 ## Python Library usage
 
-`fetch_markdown` can also be used as a Python library.
+`extract2md` can also be used as a Python library.
 
 ### 1. Fetch a URL and get Markdown
 
 ```python
-from fetch_markdown import fetch_to_markdown
+from extract2md import fetch_to_markdown
 
 markdown = fetch_to_markdown("https://www.iana.org/help/example-domains")
 ```
@@ -73,7 +73,7 @@ markdown = fetch_to_markdown("https://www.iana.org/help/example-domains")
 ### 2. Convert a previously saved HTML file
 
 ```python
-from fetch_markdown import file_to_markdown
+from extract2md import file_to_markdown
 
 markdown_from_file = file_to_markdown("sample-page.html")
 ```
@@ -81,7 +81,7 @@ markdown_from_file = file_to_markdown("sample-page.html")
 ### 3. Convert an HTML string you already have
 
 ```python
-from fetch_markdown import html_to_markdown
+from extract2md import html_to_markdown
 
 html = "<html><body><h1>Offline HTML</h1></body></html>"
 markdown_from_html = html_to_markdown(html)
@@ -106,7 +106,7 @@ Need to store markup or run your own converter? Use `fetch` and skip the Markdow
 step entirely:
 
 ```python
-from fetch_markdown import fetch
+from extract2md import fetch
 
 raw_html, content_type = fetch("https://example.com/docs")
 ```
@@ -115,7 +115,7 @@ raw_html, content_type = fetch("https://example.com/docs")
 
 - The CLI and library both fetch live webpages from URLs; network availability and site
   rate limits apply.
-- Set the `FETCH_MARKDOWN_NODE_PATH` environment variable to the Node.js binary (or its
+- Set the `EXTRACT2MD_NODE_PATH` environment variable to the Node.js binary (or its
   directory) if Readability.js cannot find `node` on your `PATH`.
 - Inspired by the [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch).
 - Thanks go to these libraries for the heavy lifting:

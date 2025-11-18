@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from fetch_markdown import Html2MarkdownError, fetch_to_markdown
+from extract2md import Html2MarkdownError, fetch_to_markdown
 
 Example_URL = "https://www.iana.org/help/example-domains"
 

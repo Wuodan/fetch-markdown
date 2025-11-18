@@ -1,4 +1,4 @@
-"""HTML conversion helpers for fetch-markdown."""
+"""HTML conversion helpers for extract2md."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from typing import Any, Optional
 
 import markdownify
 import readabilipy.simple_json
-from fetch_markdown.models import (
+from extract2md.models import (
     Html2MarkdownContentTypeError,
     Html2MarkdownToMarkdownError,
 )
@@ -61,7 +61,7 @@ def _extract_content_from_html(
 
 def _ensure_node_path() -> None:
     """Ensure the configured Node.js binary directory is on PATH."""
-    configured_path = os.environ.get("FETCH_MARKDOWN_NODE_PATH")
+    configured_path = os.environ.get("EXTRACT2MD_NODE_PATH")
     if not configured_path:
         return
 

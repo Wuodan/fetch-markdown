@@ -5,10 +5,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from fetch_markdown._fetch import DEFAULT_USER_AGENT as _DEFAULT_USER_AGENT
-from fetch_markdown._fetch import fetch_url
-from fetch_markdown._html import to_markdown
-from fetch_markdown._links import rewrite_relative_links
+from extract2md._fetch import DEFAULT_USER_AGENT as _DEFAULT_USER_AGENT
+from extract2md._fetch import fetch_url
+from extract2md._html import to_markdown
+from extract2md._links import rewrite_relative_links
 
 DEFAULT_USER_AGENT = _DEFAULT_USER_AGENT
 

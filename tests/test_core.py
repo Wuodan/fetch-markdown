@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import pytest
-from fetch_markdown import (
+from extract2md import (
     Html2MarkdownContentTypeError,
     fetch_to_markdown,
     file_to_markdown,
@@ -46,8 +46,8 @@ def test_html_to_markdown_makes_relative_links_absolute(monkeypatch) -> None:
         assert "https://example.com/docs" in html
         return "[Docs](https://example.com/docs)"
 
-    monkeypatch.setattr("fetch_markdown.core.rewrite_relative_links", fake_rewrite)
-    monkeypatch.setattr("fetch_markdown.core.to_markdown", fake_to_markdown)
+    monkeypatch.setattr("extract2md.core.rewrite_relative_links", fake_rewrite)
+    monkeypatch.setattr("extract2md.core.to_markdown", fake_to_markdown)
 
     markdown = html_to_markdown("<html></html>", base_url="https://example.com/home/")
 
@@ -64,8 +64,8 @@ def test_html_to_markdown_can_skip_relative_rewrite(monkeypatch) -> None:
         assert '<a href="/docs">Docs</a>' in html
         return "[Docs](/docs)"
 
-    monkeypatch.setattr("fetch_markdown.core.rewrite_relative_links", fake_rewrite)
-    monkeypatch.setattr("fetch_markdown.core.to_markdown", fake_to_markdown)
+    monkeypatch.setattr("extract2md.core.rewrite_relative_links", fake_rewrite)
+    monkeypatch.setattr("extract2md.core.to_markdown", fake_to_markdown)
 
     markdown = html_to_markdown(
         '<html><body><a href="/docs">Docs</a></body></html>',
@@ -92,7 +92,7 @@ def test_file_to_markdown_accepts_custom_base_url(monkeypatch, tmp_path) -> None
         assert rewrite_relative_urls is False
         return "converted"
 
-    monkeypatch.setattr("fetch_markdown.core.html_to_markdown", fake_html_to_markdown)
+    monkeypatch.setattr("extract2md.core.html_to_markdown", fake_html_to_markdown)
 
     markdown = file_to_markdown(
         html_file,
@@ -120,8 +120,8 @@ def test_fetch_to_markdown_allows_custom_base_url(monkeypatch) -> None:
         assert rewrite_relative_urls is False
         return "converted"
 
-    monkeypatch.setattr("fetch_markdown.core.fetch", fake_fetch)
-    monkeypatch.setattr("fetch_markdown.core.html_to_markdown", fake_html_to_markdown)
+    monkeypatch.setattr("extract2md.core.fetch", fake_fetch)
+    monkeypatch.setattr("extract2md.core.html_to_markdown", fake_html_to_markdown)
 
     markdown = fetch_to_markdown(
         "https://example.com/article",
@@ -148,8 +148,8 @@ def test_fetch_to_markdown_defaults_base_url_to_source(monkeypatch) -> None:
         assert base_url == "https://example.com/article"
         return "converted"
 
-    monkeypatch.setattr("fetch_markdown.core.fetch", fake_fetch)
-    monkeypatch.setattr("fetch_markdown.core.html_to_markdown", fake_html_to_markdown)
+    monkeypatch.setattr("extract2md.core.fetch", fake_fetch)
+    monkeypatch.setattr("extract2md.core.html_to_markdown", fake_html_to_markdown)
 
     markdown = fetch_to_markdown("https://example.com/article")
 

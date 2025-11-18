@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from fetch_markdown._links import rewrite_relative_links
+from extract2md._links import rewrite_relative_links
 
 
 def test_rewrite_relative_links_updates_href_and_src() -> None:

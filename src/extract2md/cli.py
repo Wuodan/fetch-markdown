@@ -1,4 +1,4 @@
-"""Command-line interface for fetch-markdown."""
+"""Command-line interface for extract2md."""
 
 from __future__ import annotations
 
@@ -36,7 +36,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--user-agent",
         help=(
-            "Custom User-Agent header. Defaults to a fetch-markdown specific agent."
+            "Custom User-Agent header. Defaults to a extract2md specific agent."
         ),
     )
     parser.add_argument(
@@ -84,7 +84,7 @@ def _write_output_file(content: str, output_path: Path | str) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Entry point used by ``python -m fetch_markdown`` and the console script."""
+    """Entry point used by ``python -m extract2md`` and the console script."""
     parser = build_parser()
     args = parser.parse_args(argv)
 

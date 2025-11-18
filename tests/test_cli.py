@@ -5,7 +5,7 @@ from __future__ import annotations
 import io
 from pathlib import Path
 
-from fetch_markdown import cli
+from extract2md import cli
 
 
 def test_cli_prints_stdout(monkeypatch, capsys):
