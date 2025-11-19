@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import pytest
+
 from extract2md import (
     Extract2MarkdownContentTypeError,
     fetch_to_markdown,
@@ -82,12 +83,12 @@ def test_file_to_markdown_accepts_custom_base_url(monkeypatch, tmp_path) -> None
     html_file.write_text("<html>content</html>", encoding="utf-8")
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert base_url == "https://override/"
         assert rewrite_relative_urls is False
@@ -111,12 +112,12 @@ def test_fetch_to_markdown_allows_custom_base_url(monkeypatch) -> None:
         return "<html></html>", "text/html"
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert base_url == "https://override/"
         assert rewrite_relative_urls is False
@@ -141,12 +142,12 @@ def test_fetch_to_markdown_defaults_base_url_to_source(monkeypatch) -> None:
         return "<html></html>", "text/html"
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert base_url == "https://example.com/article"
         return "converted"

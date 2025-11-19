@@ -17,12 +17,12 @@ def test_cli_prints_stdout(monkeypatch, capsys):
         return "<html>hello</html>", "text/html"
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert html == "<html>hello</html>"
         assert content_type == "text/html"
@@ -49,12 +49,12 @@ def test_cli_reads_file_source(monkeypatch, tmp_path: Path, capsys):
     expected_base = html_file.resolve().as_uri()
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert html == "<html>file</html>"
         assert content_type is None
@@ -95,12 +95,12 @@ def test_cli_disable_relative_rewrite(monkeypatch, capsys):
         return "<html>body</html>", "text/html"
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert rewrite_relative_urls is False
         assert converter == DEFAULT_CONVERTER
@@ -121,12 +121,12 @@ def test_cli_base_url_override_for_stdin(monkeypatch, capsys):
     monkeypatch.setattr(cli.sys, "stdin", io.StringIO("<html>stdin</html>"))
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert base_url == "https://override.test"
         assert rewrite_relative_urls is True
@@ -149,12 +149,12 @@ def test_cli_supports_custom_converter(monkeypatch, capsys):
         return "<html>body</html>", "text/html"
 
     def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
+            html,
+            content_type=None,
+            *,
+            base_url=None,
+            rewrite_relative_urls=None,
+            converter=None,
     ):
         assert converter == "trafilatura"
         return "body"

@@ -41,14 +41,27 @@ cat sample-page.html | extract2md -
 
 ## Parameters
 
-- `source`: URL, filesystem path, or `-` to read HTML from stdin.
-- `--user-agent STRING`: override the default identifier.
+`Usage: extract2md [OPTIONS] SOURCE`
+
+**Global**
+
+- `source`: HTTP(S) URL, filesystem path, or `-` when reading HTML from stdin.
+
+**Fetching (URL sources only)**
+
 - `--ignore-robots`: skip robots.txt validation (use sparingly).
 - `--proxy URL`: HTTP(S) proxy forwarded to httpx.
 - `--timeout SECONDS`: request timeout (default 30 seconds).
-- `--rewrite-relative-urls/--no-rewrite-relative-urls`:  
-  enable or disable rewriting relative `href`/`src` attributes to absolute links (default on).
-- `--base-url URL`: optional base URL for rewriting relative urls (default `source`).
+- `--user-agent STRING`: override the default identifier.
+
+**HTML rewriting**
+
+- `--rewrite-relative-urls/--no-rewrite-relative-urls`: enable or disable rewriting relative `href`/`src`
+  attributes to absolute links (default on).
+- `--base-url URL`: optional base URL for rewriting relative URLs (default `source`).
+
+**Conversion**
+
 - `--converter NAME`: choose the HTML conversion backend. Defaults to `trafilatura`;
   `readability` (requires Node.js) is also available.
 
