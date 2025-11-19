@@ -27,7 +27,7 @@ extract2md https://www.iana.org/help/example-domains
 ### 2. Fetch and write to a file
 
 ```bash
-extract2md --output sample-output.md https://www.iana.org/help/example-domains
+extract2md https://www.iana.org/help/example-domains > sample-output.md
 ```
 
 ### 3. Convert previously saved HTML (files or stdin)
@@ -48,7 +48,6 @@ extract2md --raw https://example.com
 ## Parameters
 
 - `source`: URL, filesystem path, or `-` to read HTML from stdin.
-- `-o/--output PATH`: optional destination file (stdout is the default).
 - `--raw`: bypass HTML-to-Markdown conversion and emit the response body.
 - `--user-agent STRING`: override the default identifier.
 - `--ignore-robots`: skip robots.txt validation (use sparingly).

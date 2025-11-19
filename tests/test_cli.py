@@ -41,42 +41,6 @@ def test_cli_prints_stdout(monkeypatch, capsys):
     assert "hello" in captured.out
 
 
-def test_cli_writes_file(monkeypatch, tmp_path: Path, capsys):
-    """CLI should write Markdown to the provided --output path."""
-
-    def fake_fetch(url, **kwargs):  # noqa: ANN001
-        return "<html>file</html>", "text/html"
-
-    def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
-    ):
-        assert content_type == "text/html"
-        assert base_url == "https://example.com"
-        assert rewrite_relative_urls is True
-        assert converter == DEFAULT_CONVERTER
-        return "written"
-
-    monkeypatch.setattr(cli, "fetch", fake_fetch)
-    monkeypatch.setattr(cli, "html_to_markdown", fake_html_to_markdown)
-
-    output_path = tmp_path / "out.md"
-    exit_code = cli.main([
-        "https://example.com",
-        "--output",
-        str(output_path),
-    ])
-    captured = capsys.readouterr()
-
-    assert exit_code == 0
-    assert output_path.read_text(encoding="utf-8") == "written"
-    assert "Markdown written" in captured.err
-
-
 def test_cli_reads_file_source(monkeypatch, tmp_path: Path, capsys):
     """CLI should read HTML from disk and pass it through the converter."""
     html_file = tmp_path / "page.html"
@@ -122,41 +86,6 @@ def test_cli_reads_stdin_source(monkeypatch, capsys):
 
     assert exit_code == 0
     assert "<html>stdin</html>" in captured.out
-
-
-def test_cli_writes_file_from_path_source(monkeypatch, tmp_path: Path, capsys):
-    """CLI should transform a local file and persist output when requested."""
-    html_file = tmp_path / "page.html"
-    html_file.write_text("<html>file</html>", encoding="utf-8")
-
-    expected_base = html_file.resolve().as_uri()
-
-    def fake_html_to_markdown(  # noqa: ANN001
-        html,
-        content_type=None,
-        *,
-        base_url=None,
-        rewrite_relative_urls=None,
-        converter=None,
-    ):
-        assert base_url == expected_base
-        assert rewrite_relative_urls is True
-        assert converter == DEFAULT_CONVERTER
-        return html.upper()
-
-    monkeypatch.setattr(cli, "html_to_markdown", fake_html_to_markdown)
-
-    output_path = tmp_path / "out.md"
-    exit_code = cli.main([
-        str(html_file),
-        "--output",
-        str(output_path),
-    ])
-    captured = capsys.readouterr()
-
-    assert exit_code == 0
-    assert output_path.read_text(encoding="utf-8") == "<HTML>FILE</HTML>"
-    assert "Markdown written" in captured.err
 
 
 def test_cli_disable_relative_rewrite(monkeypatch, capsys):

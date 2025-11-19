@@ -25,12 +25,6 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
-        "-o",
-        "--output",
-        type=Path,
-        help="Optional path to write the generated Markdown to",
-    )
-    parser.add_argument(
         "--raw",
         action="store_true",
         help="Return raw HTML when simplification is not desired",
@@ -84,13 +78,6 @@ def _is_url(value: str) -> bool:
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
-def _write_output_file(content: str, output_path: Path | str) -> None:
-    """Persist rendered Markdown to ``output_path``."""
-    path = Path(output_path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8")
-
-
 def main(argv: list[str] | None = None) -> int:
     """Entry point used by ``python -m extract2md`` and the console script."""
     parser = build_parser()
@@ -129,16 +116,10 @@ def main(argv: list[str] | None = None) -> int:
                 converter=args.converter,
             )
 
-        if args.output is not None:
-            _write_output_file(content, args.output)
-
     except (Extract2MarkdownError, ValueError, OSError) as exc:
         parser.exit(1, f"error: {exc}\n")
 
-    if args.output is None:
-        print(content)
-    else:
-        print(f"Markdown written to {args.output.resolve()}", file=sys.stderr)
+    print(content)
 
     return 0
 
